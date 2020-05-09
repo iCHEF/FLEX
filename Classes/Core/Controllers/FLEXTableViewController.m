@@ -327,7 +327,12 @@ CGFloat const kFLEXDebounceForExpensiveIO = 0.5;
     ];
     
     for (UIBarButtonItem *item in self.toolbarItems) {
-        [item _setWidth:60];
+        // 這邊原本用的是 _setWidth 這個 Private API，會導致上傳 TestFlight 時被 reject，
+        // 但 QE 在測試時有 FLEX 會比較方便，所以將 FLEX fork 回 iCHEF 手動把這邊改掉。
+        item.width = 60;
+        
+        // 以下為原 Code
+        // [item _setWidth:60];
         // This does not work for anything but fixed spaces for some reason
         // item.width = 60;
     }
